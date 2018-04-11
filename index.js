@@ -1,8 +1,9 @@
 'use strict'
 
-const PossibleFunction = require('possible-function')
+const errate = require('errate')
+const ofn = require('ofn')
+const pfn = require('pfn')
 
-module.exports = function (test, val, err = new Error()) {
-  if (!(err instanceof Error)) err = new Error(err)
-  if (PossibleFunction(test, test)(val)) return val; else throw err
-}
+const toss = error => { throw errate(error) }
+
+module.exports = ofn([0, 2, 1], (test, val = test, error = new Error()) => pfn(test, test)(val) ? val : toss(error))
